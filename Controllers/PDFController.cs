@@ -36,7 +36,7 @@ namespace TP1examuml.Controllers
             int rand = random.Next(1, 100000);
             string chemin =Directory.GetCurrentDirectory()+"\\wwwroot\\Ordonnance";
             if (!Directory.Exists  (chemin))
-                Directory.CreateDirectory(chemin);
+                Directory.CreateDirectory(chemin); 
 
             var cheminImage = Path.Combine(chemin, "Ordonnance" + rand + ".pdf");
 
