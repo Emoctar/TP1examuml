@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PagedList;
 using TP1examuml.Data;
 using TP1examuml.Models;
 
@@ -28,7 +29,7 @@ namespace TP1examuml.Controllers
 
         // GET: Consultations
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             if (User.IsInRole("Medecin"))
             {
@@ -36,7 +37,12 @@ namespace TP1examuml.Controllers
                 var Id = (int)user.MedecinId;
                 var applicationDbContext = _context.Consultation.Include(c => c.Medecin).Include(c => c.Patient)
                .Include(c => c.TypeConsultation).Where(c=>c.MedecinId==Id);
-                return View(await applicationDbContext.ToListAsync());
+
+
+                var pageNumber = page ?? 1; // if no page was specified in the querystring, default to the first page (1)
+                var onePageOfProducts = applicationDbContext.ToPagedList(pageNumber, 1); // will only contain 25 products max because of the pageSize
+
+                return View(onePageOfProducts);
             }
             else
             {
