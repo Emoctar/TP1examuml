@@ -42,7 +42,7 @@ namespace TP1examuml.Controllers
 
             doc.Save(cheminImage);
             doc.Close();
-            return "Le fichier pdf est cree";
+            return "Le fichier pdf est crees";
         }
         public IActionResult Afficher()
         {
