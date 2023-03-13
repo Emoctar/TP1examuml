@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TP1examuml.Models.Consultation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Liste des consultations</h1>
+
+<p>
+    <a asp-action="Create">Nouvelle Consultation</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Motif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarques)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Medecin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeConsultation.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateConsultation)
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarques)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Patient.DisplayName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Medecin.DisplayName)
+            </td>
+              <td>
+                    @Html.DisplayFor(modelItem => item.TypeConsultation.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateConsultation)
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-circle-info"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash"></i></a>
+                    <a asp-action="VoirExam" asp-route-id="@item.Id"> Mes Analyses</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole> //precision de quelle modele il s'agit
+<p>
+    <a asp-action="Create">Ajouter role</a>
+</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>@Html.DisplayNameFor(model =>model.Id)</td>
+                    <td>@Html.DisplayNameFor(model =>model.Name)</td>
+                </tr>
+            </thead>
+
+            <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem =>item.Id)</td>
+                    <td>@Html.DisplayFor(modeIteml =>item.Name)</td>
+                </tr>
+            }            
+             </tbody>
+        </table>
