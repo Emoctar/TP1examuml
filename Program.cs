@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.EntityFrameworkCore;
 using TP1examuml.Data;
+using TP1examuml.Interface;
 using TP1examuml.Models;
+using TP1examuml.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
+builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>()
     .AddDefaultTokenProviders()

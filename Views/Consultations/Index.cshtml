@@ -1,4 +1,8 @@
-﻿@model IEnumerable<TP1examuml.Models.Consultation>
+﻿@using X.PagedList; @*// lister selon le filtrage*@
+@using X.PagedList.Mvc.Core; @*// gere le numero de page*@
+@using X.PagedList.Web.Common;
+@model IPagedList<TP1examuml.Models.Consultation>
+
 
 @{
     ViewData["Title"] = "Index";
@@ -13,22 +17,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Motif)
+                Motif
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Remarques)
+                Remarques
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Patient)
+               Patient
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Medecin)
+               Medecin
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeConsultation.Nom)
+               TypeConsultation
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateConsultation)
+                DateConsultation
             </th>
            
             <th></th>
@@ -62,6 +66,21 @@
                     <a asp-action="VoirExam" asp-route-id="@item.Id"> Mes Analyses</a>
             </td>
         </tr>
+  
 }
     </tbody>
 </table>
+<nav>
+    @Html.PagedListPager(Model, page => Url.Action("index", new { page = page }), new PagedListRenderOptions()
+    {
+    ActiveLiElementClass = "active",
+    PageClasses = new[]{ "page-link"},
+    LiElementClasses=new[] { "page-item" },
+    UlElementClasses = new[] { "pagination","justify-content-center", "mt-3" },
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 5,
+    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = PagedListDisplayMode.Always
+    })
+</nav>

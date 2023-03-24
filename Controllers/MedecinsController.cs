@@ -25,10 +25,16 @@ namespace TP1examuml.Controllers
             _userManager = userManager;
         }
 
-        // GET: Medecins
-        public async Task<IActionResult> Index()
+        // GET: Medecins //vontroller la recherche d'element recherche
+        public async Task<IActionResult> Index(string? search)
         {
+            //Controller la recherche d'element recherche
+            if (string.IsNullOrEmpty(search) )
               return View(await _context.Medecin.ToListAsync());
+            else
+                return View(await _context.Medecin.
+                    Where(m=>EF.Functions.Like(m.Prenom, "%" + search + "%"))
+                    .ToListAsync());
         }
         [Authorize(Roles = "Medecin, Admin")]
         public async Task<IActionResult> ListeConsultationByMedecin(int? id)

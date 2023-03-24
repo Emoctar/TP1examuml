@@ -3,13 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link href="~/lib/Datatables/dataTables.bootstrap5.min.css" rel="stylesheet "/>
 
-<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+
+<table id="exemple" class="table">
     <thead>
         <tr>
             <th>
@@ -51,3 +52,16 @@
 }
     </tbody>
 </table>
+
+ 
+@section Scripts{
+    <script src="~/lib/Datatables/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/Datatables/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#exemple').DataTable();
+        });
+    </script>
+
+}
