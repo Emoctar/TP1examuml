@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TP1examuml.Models.Medecin>
+@{
+    ViewData["Title"] = "ListeMedecin";
+}
+
+<h1>Liste des Medecins</h1>
+
+
+
+
+
+<link  href="~/lib/Datatables/dataTables.bootstrap5.min.css"/>
+
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+               Prenom
+            </th>
+            <th>
+              Email
+            </th>
+            
+            <th>
+             Specialite
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Medecin item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Specialite)
+                </td>
+                <td>
+                    
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

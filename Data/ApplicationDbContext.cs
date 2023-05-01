@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TP1examuml.Models;
 
+
 namespace TP1examuml.Data
 {
     public class ApplicationDbContext : IdentityDbContext
@@ -18,6 +19,9 @@ namespace TP1examuml.Data
         public DbSet<Analyse> Analyse { get; set; }
         public DbSet<Laboratoire> Laboratoire { get; set;}
         public DbSet<Examen> Examen { get; set; }
+        public DbSet<RendezVous> RendezVous { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
+        
     }
 }

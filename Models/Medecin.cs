@@ -9,10 +9,14 @@ namespace TP1examuml.Models
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
+
+        public string Specialite { get; set; }
         public string Email { get; set; }
         public string Adresse { get; set; }
-        
 
+
+        public virtual List<RendezVous>? rendez_vous { get; set; }
+      
         public virtual List<Consultation>? Consultations { get; set; }
         [NotMapped]
         public string DisplayName { get => Prenom + " " + Nom; }
@@ -27,6 +31,7 @@ namespace TP1examuml.Models
         public string Email { get; set; }
         public string Profession { get; set; }
         public virtual List<Consultation>? Consultations { get; set; }
+        public virtual List<Medecin>?Medecins  { get; set; }
         [NotMapped]
         public string DisplayName { get => Prenom + " " + Nom; }
  

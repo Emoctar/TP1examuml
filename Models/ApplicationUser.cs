@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity; //
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 
 namespace TP1examuml.Models
 {
@@ -12,5 +11,6 @@ namespace TP1examuml.Models
         [ForeignKey("Patient")]
         public int? PatientId { get; set; }
         public string? DisplayName { get; set; }
+        
     }
 }

@@ -16,6 +16,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddSingleton<ICompositeViewEngine, CompositeViewEngine>();
 builder.Services.AddScoped<IConsultationRepository, ConsultationRepository>();
+builder.Services.AddScoped<ISendSmsEmailRepository, SendSmsEmailRepository>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>()
     .AddDefaultTokenProviders()

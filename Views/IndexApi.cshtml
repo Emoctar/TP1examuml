@@ -1,0 +1,67 @@
+﻿@model List<TP1examuml.Models.API.Client>
+
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link href="~/lib/Datatables/dataTables.bootstrap5.min.css" rel="stylesheet "/>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table id="exemple" class="table">
+    <thead>
+        <tr>
+            <th>
+                Prenom
+            </th>
+            <th>
+                Nom
+            </th>
+            <th>
+                Adresse
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adresse)
+            </td>
+          
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.nom">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.nom">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.nom">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+ 
+@section Scripts{
+    <script src="~/lib/Datatables/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/Datatables/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#exemple').DataTable();
+        });
+    </script>
+
+}
+

@@ -1,0 +1,139 @@
+﻿@model TP1examuml.Models.RendezVous
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+@*
+<h4>RendezVous</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Telephone" class="control-label"></label>
+                <input asp-for="Telephone" class="form-control" />
+                <span asp-validation-for="MedecinId" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="DateRv" class="control-label"></label>
+                <input asp-for="DateRv" class="form-control" />
+                <span asp-validation-for="DateRv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MedecinId" class="control-label"></label>
+                <input asp-for="MedecinId" class="form-control" />
+                <span asp-validation-for="MedecinId" class="text-danger"></span>
+                
+            </div>
+           @* <div class="form-group">
+                <label asp-for="PatientId" class="control-label"></label>
+                <input asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>*@
+           @* <div class="form-group">
+                <label asp-for="Statut" class="control-label"></label>
+                <input asp-for="Statut" class="form-control" />
+                <span asp-validation-for="Statut" class="text-danger"></span>
+            </div>*@
+         @*   <div class="form-group">
+                <input type="submit" value="Envoyer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@**@
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+   
+
+<h1>Formulaire</h1>
+
+
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Prendre un Rendez-voust</h2>
+            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <form asp-action="Create">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                <label asp-for="Patient" class="control-label"></label>
+                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId"></select>
+                    <div class="validate"></div>
+                </div>
+
+                <div class="col-md-4 form-group mt-3 mt-md-0">
+                <label asp-for="Telephone" class="control-label">Telephone</label>
+                    <input asp-for="Telephone" type="tel" class="form-control" name="phone" id="phone" placeholder="Votre Numero" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+
+                    <div class="validate"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group mt-3">
+                <label asp-for="DateRv" class="control-label">Date Rendez Vous</label>
+                        <input asp-for="DateRv" class="form-control" />
+                    <span asp-validation-for="DateRv" class="text-danger" name="DateRv" id="DateRv" placeholder="Date Rendez-Vous"></span>
+
+                </div>
+            </div>
+            <div class="col-md-4 form-group">
+            <label asp-for="Medecin" class="control-label"></label>
+            <select asp-for="Medecin.DisplayName" class="form-control" asp-items="ViewBag.MedecinId"></select>
+
+                <div class="validate"></div>
+            </div>
+            
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control" type="text">Description</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+          @*  <div class="row">
+                <div class="col-md-4 form-group mt-3">
+
+
+                    <input asp-for="Statut" class="form-control" />
+                    <span asp-validation-for="Statut" class="text-danger" name="Status" id="status" placeholder=""></span>
+
+                </div>
+            </div>*@
+
+            <div class="form-group mt-3">
+               
+            </div>
+
+           @* <div class="mb-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+            </div>*@
+            <div class="form-group">
+            <input type="submit" value="Prendre un Rendez-Vous" class="btn btn-primary"></input>
+                
+            </div>
+
+        @*<div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>*@
+        </form>
+
+    </div>
+
+<!-- End Appointment Section -->

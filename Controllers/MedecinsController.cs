@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TP1examuml.Data;
+using TP1examuml.Interface;
 using TP1examuml.Models;
 
 namespace TP1examuml.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class MedecinsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ISendSmsEmailRepository _sendSmsEmailRepository;
 
        
-        public MedecinsController(ApplicationDbContext context ,UserManager<ApplicationUser> userManager)
+        public MedecinsController(ApplicationDbContext context ,UserManager<ApplicationUser> userManager,
+            ISendSmsEmailRepository sendSmsEmail)
         {
             _context = context;
             _userManager = userManager;
+            _sendSmsEmailRepository= sendSmsEmail;
         }
 
-        // GET: Medecins //vontroller la recherche d'element recherche
+        // GET: Medecins 
         public async Task<IActionResult> Index(string? search)
         {
             //Controller la recherche d'element recherche
@@ -43,6 +42,46 @@ namespace TP1examuml.Controllers
                .FirstOrDefaultAsync(m => m.Id == id);
             return View(medecin);
         }
+         [Authorize(Roles = "Medecin, Admin")]
+        public async Task<IActionResult> ListeRendezVous(int? id)
+        {
+            //var rendezvous = await _context.Medecin.Include(m => m.rendez_vous)
+            //   .FirstOrDefaultAsync(m => m.Id == id);
+             var rendezvous = await _context.Medecin.Include(m => m.rendez_vous)
+               .FirstOrDefaultAsync(m => m.Id == id);
+            return View(rendezvous);
+        }
+
+        // Status rendez vous
+        //public async Task<IActionResult> Attente(int? id)
+        //{
+
+        //    var attente = await _context.RendezVous.Include(r => r.RendezVous).Where(r => r.Statut==0).
+        //       ToListAsync();
+        //    return View(attente);
+
+        //}
+        //public async Task<IActionResult> Confirme(int? id)
+        //{
+
+        //    var confirme = await _context.RendezVous.Include(r => r.Medecin).Include(r => r.Patient).Where(r => r.Statut == 1).
+        //       ToListAsync();
+        //    return View(confirme);
+
+
+        //}
+        //public async Task<IActionResult> Annule(int? id)
+        //{
+
+        //    var Annule = await _context.RendezVous.Include(r => r.Medecin).Include(r => r.Patient).Where(r => r.Statut == 2).
+        //       ToListAsync();
+        //    return View(Annule);
+
+
+        //}
+
+
+
 
         // GET: Medecins/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -73,32 +112,37 @@ namespace TP1examuml.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Email,Adresse")] Medecin medecin)
+        public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Email,Adresse,Specialite")] Medecin medecin)
         {
             if (ModelState.IsValid)
             { 
                 //Creation d un medecin
                 _context.Add(medecin);
                 await _context.SaveChangesAsync();
+                
 
                 //creation dun utilisateur
-                ApplicationUser applicationUser = new() { 
-                    Email=medecin.Email,
-                    UserName=medecin.Email,
-                    DisplayName=medecin.DisplayName,
-                    MedecinId=medecin.Id
+                ApplicationUser applicationUser = new() {
+                    Email = medecin.Email,
+                    UserName = medecin.Email,
+                    DisplayName = medecin.DisplayName,
+                    MedecinId = medecin.Id,
 
-                };
+                   
+            };
                 //
 
                 var result = await _userManager.CreateAsync(applicationUser, "Passer@123");
                 if (result.Succeeded)
                 {
                     //Ajout du Role a l'utilisateur
-                    await _userManager.AddToRoleAsync(applicationUser, "Medecin");
+                    await _userManager.AddToRoleAsync(applicationUser, "medecin");
                 }
+                await _sendSmsEmailRepository.SendSmsAsync(" Votre compte a ete creer avec succes ");
                 return RedirectToAction(nameof(Index));
+
             }
+           
             return View(medecin);
         }
 
@@ -123,7 +167,7 @@ namespace TP1examuml.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Email,Adresse")] Medecin medecin)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Email,Adresse,Specialite")] Medecin medecin)
         {
             if (id != medecin.Id)
             {

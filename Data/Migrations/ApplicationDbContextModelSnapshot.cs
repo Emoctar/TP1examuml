@@ -17,7 +17,7 @@ namespace TP1examuml.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.14")
+                .HasAnnotation("ProductVersion", "6.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -375,11 +375,20 @@ namespace TP1examuml.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Prenom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Specialite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Medecin");
                 });
@@ -411,6 +420,38 @@ namespace TP1examuml.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("TP1examuml.Models.RendezVous", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateRv")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MedecinId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Statut")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Telephone")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RendezVous");
                 });
 
             modelBuilder.Entity("TP1examuml.Models.TypeConsultation", b =>
@@ -561,6 +602,13 @@ namespace TP1examuml.Data.Migrations
                     b.Navigation("Consultation");
                 });
 
+            modelBuilder.Entity("TP1examuml.Models.Medecin", b =>
+                {
+                    b.HasOne("TP1examuml.Models.Patient", null)
+                        .WithMany("Medecins")
+                        .HasForeignKey("PatientId");
+                });
+
             modelBuilder.Entity("TP1examuml.Models.TypeConsultation", b =>
                 {
                     b.HasOne("TP1examuml.Models.TypeConsultation", null)
@@ -581,6 +629,8 @@ namespace TP1examuml.Data.Migrations
             modelBuilder.Entity("TP1examuml.Models.Patient", b =>
                 {
                     b.Navigation("Consultations");
+
+                    b.Navigation("Medecins");
                 });
 
             modelBuilder.Entity("TP1examuml.Models.TypeConsultation", b =>

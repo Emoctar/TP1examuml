@@ -3,14 +3,89 @@
 @{
     ViewData["Title"] = "Index";
 }
-<link href="~/lib/Datatables/dataTables.bootstrap5.min.css" rel="stylesheet "/>
 
+
+
+
+@*<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon sidebar avec Bootstrap</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+   
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span data-feather="home"></span>
+                                Accueil <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="file"></span>
+                                Rapports
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="users"></span>
+                                Clients
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="settings"></span>
+                                Paramètres
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Tableau de bord</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <button class="btn btn-sm btn-outline-secondary">Partager</button>
+                            <button class="btn btn-sm btn-outline-secondary">Exporter</button>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            Cette semaine
+                        </button>
+                    </div>
+                </div>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                <h2>Section de contenu</h2>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere orci in odio hendrerit, ac vestibulum justo lacinia. Integer id velit ut nisl accumsan bibendum ac vel lectus. Etiam sit amet neque eget est lacinia bibendum. Nulla facilisi. Nulla non ullamcorper sapien. Praesent ultrices leo in nibh laoreet venenatis. Suspendisse vel libero dapibus, lacinia velit eget, tempor odio.</p>
+            </main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>*@
+
+<h1>Liste des Patients</h1>
+<form asp-action="Index" method="GET">
+    <label for="search" class="control-label">Rechercher</label>
+    <input type="text" id="search" name="search" placeholder="Entrer votre recherche" />
+    <button type="submit">Rechercher</button>
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
-<table id="exemple" class="table">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -44,7 +119,9 @@
                 @Html.DisplayFor(modelItem => item.Profession)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+
+                   @*<a asp-action="ListeDesMedecins" asp-route-id="@item.Id">Liste Medecin</a> |*@
+                  <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
@@ -52,16 +129,3 @@
 }
     </tbody>
 </table>
-
- 
-@section Scripts{
-    <script src="~/lib/Datatables/dataTables.bootstrap5.min.js"></script>
-    <script src="~/lib/Datatables/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#exemple').DataTable();
-        });
-    </script>
-
-}
